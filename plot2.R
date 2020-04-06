@@ -36,3 +36,7 @@ baltimoreEmissions <- aggregate(Emissions ~ year, baltimore, sum)
 
 #Plot emissions by year for Baltimore
 plot(baltimoreEmissions$year, baltimoreEmissions$Emissions, main="Total Baltimore Emissions by Year", xlab="Year", ylab="Emissions", type="l", col="red")
+
+# Save to png file
+dev.copy(png, file="plot2.png", height=480, width=480)
+dev.off()
