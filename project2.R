@@ -49,6 +49,10 @@ baltimoreEmissions <- aggregate(Emissions ~ year, baltimore, sum)
 #Plot emissions by year for Baltimore
 plot(baltimoreEmissions$year, baltimoreEmissions$Emissions, main="Total Baltimore Emissions by Year", xlab="Year", ylab="Emissions", type="l", col="red")
 
+# Save to png file
+dev.copy(png, file="plot2.png", height=480, width=480)
+dev.off()
+
 #3. Of the four types of sources indicated by the type (point, nonpoint, onroad, nonroad) variable, 
 #which of these four sources have seen increases/decreases in emissions from 1999–2008 for Baltimore City?
 
@@ -58,6 +62,10 @@ baltimoreType <- aggregate(Emissions ~ year + type, baltimore, sum)
 #Plot
 ggplot(data=baltimoreType, aes(year, Emissions, col=type)) + geom_point() + geom_line() + ggtitle("Baltimore Emissions by Year and Type")
 
+# Save to png file
+dev.copy(png, file="plot3.png", height=480, width=480)
+dev.off()
+
 #4. Across the United States, how have emissions from coal combustion-related sources changed from 1999–2008?        
 
 coal <- SCC[grepl("coal", SCC$Short.Name, ignore.case = TRUE),]
@@ -65,6 +73,10 @@ coal2 <- NEI[NEI$SCC %in% coal$SCC,]
 totalCoal <- aggregate(Emissions ~ year + type, coal2, sum)
 
 ggplot(totalCoal, aes(year, Emissions, type)) + geom_point() + geom_line()
+
+# Save to png file
+dev.copy(png, file="plot4.png", height=480, width=480)
+dev.off()
 
 #5. How have emissions from motor vehicle sources changed from 1999–2008 in Baltimore City?
 
@@ -76,6 +88,9 @@ baltimoreVehicles <- aggregate(Emissions ~ year, baltimore, sum)
 #Plot
 ggplot(baltimoreVehicles, aes(year, Emissions)) + geom_point() + geom_line() + ggtitle("Baltimore Motor Vehicle Emissions")
 
+# Save to png file
+dev.copy(png, file="plot5.png", height=480, width=480)
+dev.off()
 
 #6. Compare emissions from motor vehicle sources in Baltimore City with emissions from motor vehicle sources in Los Angeles County
 
@@ -85,3 +100,6 @@ dualLocationVehicles <- aggregate(Emissions ~ year + fips, dualLocations, sum)
 
 ggplot(dualLocationVehicles, aes(year, Emissions, col=fips)) + geom_point() + geom_line() + ggtitle("Baltimore vs LA County Motor Vehicle Emissions") + scale_colour_discrete(name = "Location", labels = c("LA County", "Baltimore"))
 
+# Save to png file
+dev.copy(png, file="plot6.png", height=480, width=480)
+dev.off()
